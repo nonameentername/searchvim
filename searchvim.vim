@@ -8,7 +8,7 @@ sys.path.append(
 )
 
 if os.environ.has_key('VIRTUAL_ENV'):
-    path = os.environ['VIRTUAL_ENV'] + '/lib/python2.6/site-packages'
+    path = os.environ['VIRTUAL_ENV'] + '/lib/python2.7/site-packages'
     sys.path.append(path)
 
 from searchvim.searchfile import searchfile

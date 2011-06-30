@@ -60,10 +60,15 @@ class searchvim:
         vim.command('silent!bd! %s' % self.name)
 
     def enter(self):
-        if self.w.cursor[0] > 1 or self.b[0] == self.b[1]:
-            self.handleselect(self.b[self.w.cursor[0]-1])
-            if self.delete:
-                vim.command('silent!bd! %s' % self.name)
+        if len(self.b) > 1:
+            if self.w.cursor[0] == 1:
+                self.handleselect(self.b[1])
+                if self.delete:
+                    vim.command('silent!bd! %s' % self.name)
+            elif self.w.cursor[0] > 1 or self.b[0] == self.b[1]:
+                self.handleselect(self.b[self.w.cursor[0]-1])
+                if self.delete:
+                    vim.command('silent!bd! %s' % self.name)
 
     def backspace(self):
         self.searchname = self.searchname[:-1]
