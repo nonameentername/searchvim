@@ -19,7 +19,7 @@ class searchfile(searchvim):
 
         for root, dirs, files in os.walk('.'):
             for name in files:
-                self.adddict(result, name, os.path.join(root[2:],name))
+                self.adddict(result, '%s (%s)' % (name, root[2:]), os.path.join(root[2:],name))
             for name in dirs:
                 if name.startswith('.'):
                     dirs.remove(name)
