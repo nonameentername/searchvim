@@ -1,6 +1,7 @@
-import vim
 import os
 import re
+import time
+import vim
 from subprocess import *
 from config import ins
 
@@ -9,10 +10,16 @@ class searchvim:
     def __init__(self):
         self.name = self.__class__.__name__
 
-        if hasattr(self, 'ignorelist'):
-            self.lines = self.ignore(self.getlines())
-        else:
+        try:
+            self.start = time.time()
             self.lines = self.getlines()
+        except Exception as e:
+            print e
+            vim.command('silent!bd! %s' % self.name)
+            return
+
+        if hasattr(self, 'ignorelist'):
+            self.lines = self.ignore(self.lines)
 
         if not hasattr(self, 'delete'):
             self.delete = True
@@ -45,7 +52,7 @@ class searchvim:
 
         for num in range(97,123):
             vim.command('nmap <silent><buffer><S-%s> :py ins["%s"].keydown("%s".upper())<cr>' % (chr(num), self.name, chr(num)))
-    
+
         self.update()
 
     def up(self):
@@ -96,7 +103,13 @@ class searchvim:
             self.b[0] = self.b[1]
         self.w.cursor = (1, len(self.searchname))
 
+    def _check_timeout(self):
+        if time.time() - self.start > 1:
+            raise Exception("Timed out!")
+
     def adddict(self, d, key, value):
+        self._check_timeout()
+
         if d.has_key(key):
             i = 1
             while d.has_key('%s [%s]' % (key,i)):

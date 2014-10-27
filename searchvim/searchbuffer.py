@@ -20,7 +20,7 @@ class searchbuffer(searchvim):
         vim.command('silent ls')
         vim.command('redir END')
         temp = vim.eval('stemp')
-        
+
         for line in temp.splitlines():
             if len(line):
                 name = line.split('"')[1]

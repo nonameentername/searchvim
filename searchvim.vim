@@ -1,5 +1,6 @@
 python << eopython
 import os
+import site
 import sys
 import vim
 
@@ -7,9 +8,10 @@ sys.path.append(
     os.path.join(os.path.expanduser('~'), '.vim/plugin')
 )
 
-if os.environ.has_key('VIRTUAL_ENV'):
-    path = os.environ['VIRTUAL_ENV'] + '/lib/python2.7/site-packages'
-    sys.path.append(path)
+if os.environ.has_key('PYENV_ROOT'):
+    path = os.path.join(os.environ['PYENV_ROOT'],
+        'versions/default/lib/python2.7/site-packages')
+    site.addsitedir(path)
 
 from searchvim.searchfile import searchfile
 from searchvim.searchbuffer import searchbuffer
