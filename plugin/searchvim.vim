@@ -1,12 +1,12 @@
+let s:path = expand('<sfile>:p:h')
+
 python << eopython
 import os
 import site
 import sys
 import vim
 
-sys.path.append(
-    os.path.join(os.path.expanduser('~'), '.vim/plugin')
-)
+sys.path.append(vim.eval('s:path'))
 
 if os.environ.has_key('PYENV_ROOT'):
     path = os.path.join(os.environ['PYENV_ROOT'],
