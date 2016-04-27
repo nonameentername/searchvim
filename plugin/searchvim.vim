@@ -1,3 +1,7 @@
+if !has('python')
+    finish
+endif
+
 let s:path = expand('<sfile>:p:h')
 
 python << eopython
