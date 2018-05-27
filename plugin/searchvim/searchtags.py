@@ -3,7 +3,7 @@ import os
 import re
 import sys
 from subprocess import *
-from searchvim import searchvim
+from .searchvim import searchvim
 
 class searchtags(searchvim):
 

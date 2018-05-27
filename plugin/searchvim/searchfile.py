@@ -3,7 +3,7 @@ import re
 import sys
 import vim
 from subprocess import *
-from searchvim import searchvim
+from .searchvim import searchvim
 
 class searchfile(searchvim):
 

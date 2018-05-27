@@ -3,7 +3,7 @@ import re
 import time
 import vim
 from subprocess import *
-from config import ins
+from .config import ins
 
 class searchvim:
 
@@ -14,7 +14,7 @@ class searchvim:
             self.start = time.time()
             self.lines = self.getlines()
         except Exception as e:
-            print e
+            print (e)
             vim.command('silent!bd! %s' % self.name)
             return
 
@@ -35,23 +35,23 @@ class searchvim:
         vim.command('setlocal bufhidden=hide')
         vim.command('setlocal noswapfile')
 
-        vim.command('nmap <silent><buffer><C-k> :py ins["%s"].up()<cr>' % self.name)
-        vim.command('nmap <silent><buffer><C-j> :py ins["%s"].down()<cr>' % self.name)
-        vim.command('nmap <silent><buffer><BS> :py ins["%s"].backspace()<cr>' % self.name)
-        vim.command('nmap <silent><buffer><Enter> :py ins["%s"].enter()<cr>' % self.name)
-        vim.command('nmap <silent><buffer><Esc> :py ins["%s"].exit()<cr>' % self.name)
+        vim.command('nmap <silent><buffer><C-k> :py3 ins["%s"].up()<cr>' % self.name)
+        vim.command('nmap <silent><buffer><C-j> :py3 ins["%s"].down()<cr>' % self.name)
+        vim.command('nmap <silent><buffer><BS> :py3 ins["%s"].backspace()<cr>' % self.name)
+        vim.command('nmap <silent><buffer><Enter> :py3 ins["%s"].enter()<cr>' % self.name)
+        vim.command('nmap <silent><buffer><Esc> :py3 ins["%s"].exit()<cr>' % self.name)
 
         for char in '*._-^$':
-            vim.command('nmap <silent><buffer>%s :py ins["%s"].keydown("%s")<cr>' % (char, self.name, char))
+            vim.command('nmap <silent><buffer>%s :py3 ins["%s"].keydown("%s")<cr>' % (char, self.name, char))
 
         for num in range(0,10):
-            vim.command('nmap <silent><buffer>%s :py ins["%s"].keydown("%s")<cr>' % (num, self.name, num))
+            vim.command('nmap <silent><buffer>%s :py3 ins["%s"].keydown("%s")<cr>' % (num, self.name, num))
 
         for num in range(97,123):
-            vim.command('nmap <silent><buffer>%s :py ins["%s"].keydown("%s")<cr>' % (chr(num), self.name, chr(num)))
+            vim.command('nmap <silent><buffer>%s :py3 ins["%s"].keydown("%s")<cr>' % (chr(num), self.name, chr(num)))
 
         for num in range(97,123):
-            vim.command('nmap <silent><buffer><S-%s> :py ins["%s"].keydown("%s".upper())<cr>' % (chr(num), self.name, chr(num)))
+            vim.command('nmap <silent><buffer><S-%s> :py3 ins["%s"].keydown("%s".upper())<cr>' % (chr(num), self.name, chr(num)))
 
         self.update()
 
@@ -110,9 +110,9 @@ class searchvim:
     def adddict(self, d, key, value):
         self._check_timeout()
 
-        if d.has_key(key):
+        if key in d:
             i = 1
-            while d.has_key('%s [%s]' % (key,i)):
+            while '%s [%s]' % (key,i) in d:
                 i+=1
             d['%s [%s]' % (key,i)] = value
         else:

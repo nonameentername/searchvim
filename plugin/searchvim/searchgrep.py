@@ -3,12 +3,12 @@ import os
 import re
 import sys
 from subprocess import *
-from searchvim import searchvim
+from .searchvim import searchvim
 
 class searchgrep(searchvim):
 
     def __init__(self):
-        #from: http://vim.wikia.com/wiki/User_input_from_a_script  
+        #from: http://vim.wikia.com/wiki/User_input_from_a_script
         vim.command('call inputsave()')
         vim.command("let user_input = input(':')")
         vim.command('call inputrestore()')
