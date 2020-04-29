@@ -34,6 +34,7 @@ class searchgrep(searchvim):
         lines = stdout.splitlines()
 
         for line in lines:
+            line = line.decode('utf-8')
             tokens = line.split(':')
             self.adddict(result, line, (tokens[0], tokens[1]))
 
